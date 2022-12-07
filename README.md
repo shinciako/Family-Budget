@@ -3,7 +3,7 @@
 Żeby uruchomić frontend potrzebujemy pobrać node js
 [Link](https://nodejs.org/en/)
 <br>
-Następnie potrzebujemy wpisać 2 komendy
+Następnie potrzebujemy wpisać 2 komendy w terminalu, gdy będziemy w folderze react_demo.
 ```
 npm install
 npm start
