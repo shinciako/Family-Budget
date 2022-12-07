@@ -1,10 +1,11 @@
 package com.example.budget.transaction;
 
+import com.example.budget.category.Category;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Data
@@ -27,8 +28,10 @@ public class Transaction {
     private String name;
     @NonNull
     private float price;
-    @NonNull
-    private String category;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id")
+    private Category category;
     @NonNull
     private boolean isFixed;
+    private Date date;
 }

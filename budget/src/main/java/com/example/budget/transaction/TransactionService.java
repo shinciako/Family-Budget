@@ -27,8 +27,10 @@ public class TransactionService {
         return new ResponseEntity<>(transactionRepository.findAll(), HttpStatus.OK);
     }
 
-    ResponseEntity<Optional<Transaction>> getReferenceById(int id){
-        return new ResponseEntity<>(transactionRepository.findById(id), HttpStatus.OK);
+    ResponseEntity<Transaction> getReferenceById(int id){
+        Transaction transaction = transactionRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Transaction with id "+id+" doesn't exist"));
+        return new ResponseEntity<>(transaction, HttpStatus.OK);
     }
 
     ResponseEntity<Transaction> addTransaction(Transaction transaction){
@@ -37,17 +39,17 @@ public class TransactionService {
     }
 
 
-    ResponseEntity<Transaction> editTransaction(Transaction transaction, int id){
-        Transaction updateTransaction = transactionRepository.findById(id)
+    ResponseEntity<Transaction> updateTransaction(Transaction transaction, int id){
+        Transaction editTransaction = transactionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Transaction with id "+id+" doesn't exist"));
 
-        updateTransaction.setId(id);
-        updateTransaction.setName(transaction.getName());
-        updateTransaction.setPrice(transaction.getPrice());
-        updateTransaction.setCategory(transaction.getCategory());
-        updateTransaction.setFixed(transaction.isFixed());
-        transactionRepository.save(updateTransaction);
-        return new ResponseEntity<>(updateTransaction, HttpStatus.CREATED);
+        editTransaction.setId(id);
+        editTransaction.setName(transaction.getName());
+        editTransaction.setPrice(transaction.getPrice());
+        editTransaction.setCategory(transaction.getCategory());
+        editTransaction.setFixed(transaction.isFixed());
+        transactionRepository.save(editTransaction);
+        return new ResponseEntity<>(editTransaction, HttpStatus.OK);
     }
 
     ResponseEntity<Integer> deleteTransaction(int id){
