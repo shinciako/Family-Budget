@@ -6,26 +6,37 @@ import TransactionsList from "./TransactionsList";
 import "./Transactions.css";
 
 const Transactions = (props) => {
-  const [filteredYear, setFilteredYear] = useState("2022");
+  const [dateStart, setDateStart] = useState("");
+  const [dateEnd, setDateEnd] = useState("");
   const [filteredCategory, setFilteredCategory] = useState({id: 0, name: "All"});
 
   const options = [{id: 0, name: "All"},...props.categories]
 
-  const filterChangeHandler = (selectedYear) => {
-    setFilteredYear(selectedYear);
+  const dateStartChangeHandler = (selectedStart) => {
+    setDateStart(selectedStart);
+  };
+
+  const dateEndChangeHandler = (selectedEnd) => {
+    setDateEnd(selectedEnd);
   };
 
   const filterCategoryChangeHandler = (selectedCategory) => {
     setFilteredCategory(selectedCategory);
   };
 
+  const dateFilter = (date) =>{
+    if(dateStart==="" && dateEnd==="") return date
+    if(dateEnd==="") return (date >=new Date(dateStart));
+    if(dateStart==="") return (date <=new Date(dateEnd));
+    return (date >=new Date(dateStart) && date<=new Date(dateEnd));
+
+  }
+
   const filteredTransactions = props.items.filter((transaction) => {
-    // console.log("filtered1 "+ transaction.category);
-    // console.log("filtered2 "+ filteredCategory?.name);
     if (filteredCategory.name === "All")
-      return(transaction.date.getFullYear().toString() === filteredYear)
+      return(dateFilter(transaction.date));
     return (
-      transaction.date.getFullYear().toString() === filteredYear &&
+      dateFilter(transaction.date) &&
       transaction.category === filteredCategory?.name
     );
   });
@@ -34,9 +45,10 @@ const Transactions = (props) => {
     <div>
       <Card className="transaction">
         <TransactionsFilter
-          selected={filteredYear}
+          selectedDateStart={dateStart}
           selectedCategory={filteredCategory}
-          onChangeFilter={filterChangeHandler}
+          onChangeDateStartFilter={dateStartChangeHandler}
+          onChangeDateEndFilter={dateEndChangeHandler}
           onCategoryChangeFilter={filterCategoryChangeHandler}
           categories={options}
         />
