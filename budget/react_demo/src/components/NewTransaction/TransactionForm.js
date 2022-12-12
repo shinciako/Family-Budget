@@ -1,4 +1,5 @@
 import { useState } from "react";
+import DateInput from "./DateInput";
 import "./TransactionForm.css";
 
 const TransactionForm = (props) => {
@@ -58,14 +59,7 @@ const TransactionForm = (props) => {
           />
         </div>
         <div className="new-transaction__control">
-          <label>Date</label>
-          <input
-            type="date"
-            min="2019-01-01"
-            max="2023-12-31"
-            value={enteredDate}
-            onChange={dateChangeHandler}
-          />
+          <DateInput label="Date" min="2019-01-01" max="2023-12-31" enteredDate={enteredDate} dateChangeHandler={dateChangeHandler}/>
         </div>
         <div className="new-transaction__control">
           <label>Category</label>
