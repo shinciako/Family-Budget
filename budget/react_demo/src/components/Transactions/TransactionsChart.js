@@ -21,7 +21,7 @@ const TransactionsChart = (props) => {
     chartDataPoints[transactionMonth].value += transaction.amount;
   }
 
-  return <Chart dataPoints={chartDataPoints}/>;
+  return <Chart dataPoints={chartDataPoints} />;
 };
 
 export default TransactionsChart;

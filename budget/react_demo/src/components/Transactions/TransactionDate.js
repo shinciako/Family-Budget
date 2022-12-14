@@ -1,4 +1,4 @@
-import './TransactionDate.css';
+import "./TransactionDate.css";
 
 const TransactionDate = (props) => {
   const month = props.date.toLocaleString("en-US", { month: "long" });
@@ -12,6 +12,6 @@ const TransactionDate = (props) => {
       <div className="transaction-date__year">{year}</div>
     </div>
   );
-}
+};
 
 export default TransactionDate;

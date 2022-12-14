@@ -1,9 +1,0 @@
-.transactions-list {
-  list-style: none;
-  padding: 0;
-}
-
-.transactions-list__fallback {
-  color: white;
-  text-align: center;
-}

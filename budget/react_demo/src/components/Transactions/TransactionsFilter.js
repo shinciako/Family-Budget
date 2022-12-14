@@ -34,8 +34,19 @@ const TransactionsFilter = (props) => {
             </option>
           ))}
         </select>
-        <DateInput label="From" min="2019-01-01" max="2023-12-31" enteredDate={props.selectedDateStart} dateChangeHandler={dateStartChangeHandler}/>
-        <DateInput label="To" min="2019-01-01" max="2023-12-31" dateChangeHandler={dateEndChangeHandler}/>
+        <DateInput
+          label="From"
+          min="2019-01-01"
+          max="2023-12-31"
+          enteredDate={props.selectedDateStart}
+          dateChangeHandler={dateStartChangeHandler}
+        />
+        <DateInput
+          label="To"
+          min="2019-01-01"
+          max="2023-12-31"
+          dateChangeHandler={dateEndChangeHandler}
+        />
       </div>
     </div>
   );
