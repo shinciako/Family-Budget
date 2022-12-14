@@ -14,8 +14,9 @@ public class CategoryConfig {
             Category food = new Category("Food");
             Category drink = new Category("Drink");
             Category hardware = new Category("Hardware");
+            Category dog = new Category("Dog");
             repository.saveAll(
-                    List.of(food, drink, hardware)
+                    List.of(food, drink, hardware, dog)
             );
         };
     }

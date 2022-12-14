@@ -1,6 +1,7 @@
 package com.example.budget.transaction;
 
 import com.example.budget.category.Category;
+import com.example.budget.currency.Currency;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,6 +32,9 @@ public class Transaction {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "currency_id")
+    private Currency currency;
     @NonNull
     private boolean isFixed;
     private Date date;

@@ -23,7 +23,7 @@ const NewTransaction = (props) => {
   return (
     <div className="new-transaction">
       {!isEditing && <button onClick={startEditingHandler}>Add new transaction</button>}
-      {isEditing && <TransactionForm onSaveTransactionData={saveTransactionDataHandler} onCancel={stopEditingHandler} categories={props.categories}/>}
+      {isEditing && <TransactionForm onSaveTransactionData={saveTransactionDataHandler} onCancel={stopEditingHandler} categories={props.categories} currencies={props.currencies}/>}
     </div>
   );
 };

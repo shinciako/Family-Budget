@@ -14,6 +14,7 @@ const TransactionsList = (props) => {
           name={transaction.name}
           amount={transaction.amount}
           category={transaction.category}
+          currency={transaction.currency}
           date={transaction.date}
         />
       ))}

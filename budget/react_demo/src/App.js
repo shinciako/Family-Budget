@@ -6,6 +6,7 @@ import Header from './components/Layout/Header'
 const App = () => {
   const [transactions, setTransactions] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [currencies, setCurrencies] = useState([]);
 
   function fetchTransactionsHandler() {
     fetch("http://localhost:8080/transactions/")
@@ -20,6 +21,7 @@ const App = () => {
             name: transactionData.name,
             amount: transactionData.price,
             category: transactionData.category.name,
+            currency: transactionData.currency.code,
             date: new Date(transactionData.date),
           };
         });
@@ -44,9 +46,27 @@ const App = () => {
       });
   }
 
+  function fetchCurrenciesHandler() {
+    fetch("http://localhost:8080/currencies/")
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          const transformedCurrencies = data.map((currencyData) => {
+            return {
+              id: currencyData.id,
+              name: currencyData.name
+            };
+          });
+          setCurrencies(transformedCurrencies);
+        });
+  }
+
   useEffect(() => {
     fetchTransactionsHandler();
     fetchCategoriesHandler();
+    fetchCurrenciesHandler();
   }, []);
 
   async function addTransactionHandler(transaction) {
@@ -70,8 +90,8 @@ const App = () => {
       <Header>
         
       </Header>
-      <NewTransaction onAddTransaction={addTransactionHandler} categories={categories}/>
-      <Transactions items={transactions} categories={categories}/>
+      <NewTransaction onAddTransaction={addTransactionHandler} categories={categories} currencies={currencies}/>
+      <Transactions items={transactions} categories={categories} currencies={currencies}/>
     </div>
   );
 };
