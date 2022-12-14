@@ -4,7 +4,7 @@ import Card from "../UI/Card";
 
 const TransactionItem = (props) => {
   return (
-    <li>
+    <li onClick={props.onClick}>
       <Card className="transaction-item">
         <TransactionDate date={props.date} />
         <div className="transaction-item__description">

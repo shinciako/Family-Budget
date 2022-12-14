@@ -65,7 +65,12 @@ const Transactions = (props) => {
           onCategoryChangeFilter={filterCategoryChangeHandler}
           categories={options}
         />
-        <TransactionsList items={filteredTransactions} />
+        <TransactionsList
+          items={filteredTransactions}
+          categories={props.categories}
+          onUpdateTransactionHandler={props.onUpdateTransactionsHandler}
+          onDeleteTransactionsHandler={props.onDeleteTransactionsHandler}
+        />
       </Card>
     </div>
   );
