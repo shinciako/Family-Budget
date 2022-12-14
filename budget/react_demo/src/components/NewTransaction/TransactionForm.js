@@ -5,7 +5,7 @@ import "./TransactionForm.css";
 const TransactionForm = (props) => {
   const [enteredName, setEnteredName] = useState("");
   const [enteredPrice, setEnteredPrice] = useState("");
-  const [enteredDate, setEnteredDate] = useState("");
+  const [enteredDate, setEnteredDate] = useState(new Date());
   const [selectedCategory, setSelectedCategory] = useState();
   const [enteredCategory, setEnteredCategory] = useState(props.categories[0]);
 
