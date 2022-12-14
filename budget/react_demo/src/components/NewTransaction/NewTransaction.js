@@ -8,6 +8,13 @@ const NewTransaction = (props) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isCategoryEditing, setIsCategoryEditing] = useState(false);
 
+  const dummyInput = {
+    name: "",
+    price: 0,
+    date: new Date(),
+    category: props.categories[2],
+  };
+
   const saveTransactionDataHandler = (enteredTransactionData) => {
     props.onAddTransaction(enteredTransactionData);
     console.log(enteredTransactionData);
@@ -46,9 +53,11 @@ const NewTransaction = (props) => {
       )}
       {isEditing && (
         <TransactionForm
+          buttonName="Add transaction"
           onSaveTransactionData={saveTransactionDataHandler}
           onCancel={stopEditingHandler}
           categories={props.categories}
+          prev={dummyInput}
         />
       )}
       {isCategoryEditing && (
