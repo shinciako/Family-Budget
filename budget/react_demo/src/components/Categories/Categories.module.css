@@ -1,0 +1,14 @@
+.category-button {
+  background-color: brown;
+  border-color: brown;
+  border-radius: 5px;
+  font-size: 20px;
+  color: aliceblue;
+  padding: 10px;
+  box-shadow: 0 1px 18px 10px rgba(0, 0, 0, 0.25);
+}
+
+.container {
+  position: relative;
+  display: inline-block;
+}
