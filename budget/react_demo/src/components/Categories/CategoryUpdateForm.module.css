@@ -1,0 +1,10 @@
+.form-cat {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -20%);
+}
+
+.button-cat {
+  background-color: red;
+}
