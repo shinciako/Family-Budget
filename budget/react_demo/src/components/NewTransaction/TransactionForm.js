@@ -1,11 +1,12 @@
 import { useState } from "react";
+import DateInput from "./DateInput";
 import "./TransactionForm.css";
 
 const TransactionForm = (props) => {
-  const [enteredName, setEnteredName] = useState("");
-  const [enteredPrice, setEnteredPrice] = useState("");
-  const [enteredDate, setEnteredDate] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState();
+  const [enteredName, setEnteredName] = useState(props.prev.name);
+  const [enteredPrice, setEnteredPrice] = useState(props.prev.price);
+  const [enteredDate, setEnteredDate] = useState(props.prev.date);
+  const [selectedCategory, setSelectedCategory] = useState(props.prev.category);
   const [enteredCategory, setEnteredCategory] = useState(props.categories[0]);
 
   const nameChangeHandler = (event) => {
@@ -23,7 +24,6 @@ const TransactionForm = (props) => {
   const categoryChangeHandler = (event) => {
     setSelectedCategory(event.target.value);
     setEnteredCategory(JSON.parse(event.target.value));
-    console.log("event " + event.target.value);
   };
 
   const submitHandler = (event) => {
@@ -58,13 +58,12 @@ const TransactionForm = (props) => {
           />
         </div>
         <div className="new-transaction__control">
-          <label>Date</label>
-          <input
-            type="date"
+          <DateInput
+            label="Date"
             min="2019-01-01"
             max="2023-12-31"
-            value={enteredDate}
-            onChange={dateChangeHandler}
+            enteredDate={enteredDate}
+            dateChangeHandler={dateChangeHandler}
           />
         </div>
         <div className="new-transaction__control">
@@ -82,7 +81,7 @@ const TransactionForm = (props) => {
         <button type="button" onClick={props.onCancel}>
           Cancel
         </button>
-        <button type="submit">Add Transaction</button>
+        <button type="submit">{props.buttonName}</button>
       </div>
     </form>
   );
