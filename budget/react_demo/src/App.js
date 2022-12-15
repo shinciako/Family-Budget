@@ -8,6 +8,7 @@ const App = () => {
   const [transactions, setTransactions] = useState([]);
   const [categories, setCategories] = useState([]);
   const [isShowing, setIsShowing] = useState(false);
+  const [currencies, setCurrencies] = useState([]);
 
   const startShowingHandler = () => {
     if (isShowing === false) setIsShowing(true);
@@ -37,6 +38,7 @@ const App = () => {
             name: transactionData.name,
             price: transactionData.price,
             category: transactionData.category.name,
+            currency: transactionData.currency.code,
             date: new Date(transactionData.date),
           };
         });
@@ -59,12 +61,14 @@ const App = () => {
   }
 
   async function deleteTransactionsHandler(id) {
-    await fetch("http://localhost:8080/transactions/bin/" + JSON.stringify(id), {
-      method: "DELETE",
-    });
+    await fetch(
+      "http://localhost:8080/transactions/bin/" + JSON.stringify(id),
+      {
+        method: "DELETE",
+      }
+    );
     fetchTransactionsHandler();
   }
-
 
   async function addCategoryHandler(category) {
     await fetch("http://localhost:8080/categories/", {
@@ -93,6 +97,23 @@ const App = () => {
       });
   }
 
+  function fetchCurrenciesHandler() {
+    fetch("http://localhost:8080/currencies/")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        const transformedCurrencies = data.map((currencyData) => {
+          return {
+            id: currencyData.id,
+            name: currencyData.name,
+          };
+        });
+        setCurrencies(transformedCurrencies);
+      });
+  }
+
   async function updateCategoryHandler(category) {
     await fetch(
       "http://localhost:8080/categories/" + JSON.stringify(category.id),
@@ -106,6 +127,7 @@ const App = () => {
     );
     fetchTransactionsHandler();
     fetchCategoriesHandler();
+    fetchCurrenciesHandler();
   }
 
   async function deleteCategoryHandler(id) {
@@ -119,6 +141,7 @@ const App = () => {
   useEffect(() => {
     fetchTransactionsHandler();
     fetchCategoriesHandler();
+    fetchCurrenciesHandler();
   }, []);
 
   return (
@@ -137,12 +160,14 @@ const App = () => {
         onAddTransaction={addTransactionHandler}
         categories={categories}
         onAddCategory={addCategoryHandler}
+        currencies={currencies}
       />
       <Transactions
         items={transactions}
         categories={categories}
         onUpdateTransactionsHandler={updateTransactionsHandler}
         onDeleteTransactionsHandler={deleteTransactionsHandler}
+        currencies={currencies}
       />
     </div>
   );

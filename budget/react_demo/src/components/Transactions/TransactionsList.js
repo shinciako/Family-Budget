@@ -50,6 +50,7 @@ const TransactionsList = (props) => {
             price={transaction.price}
             category={transaction.category}
             date={transaction.date}
+            currency={transaction.currency}
             onClick={(event) => {
               showModalHandler(event);
               setCurrentItemHandler(transaction);
@@ -66,6 +67,7 @@ const TransactionsList = (props) => {
             onCancel={hideModalHandler}
             categories={props.categories}
             prev={currentItem}
+            currencies={props.currencies}
           ></TransactionForm>
           <button
             className={classes["button--close"]}

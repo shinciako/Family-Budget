@@ -58,6 +58,7 @@ const NewTransaction = (props) => {
           onCancel={stopEditingHandler}
           categories={props.categories}
           prev={dummyInput}
+          currencies={props.currencies}
         />
       )}
       {isCategoryEditing && (

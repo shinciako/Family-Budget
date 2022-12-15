@@ -70,6 +70,7 @@ const Transactions = (props) => {
           categories={props.categories}
           onUpdateTransactionHandler={props.onUpdateTransactionsHandler}
           onDeleteTransactionsHandler={props.onDeleteTransactionsHandler}
+          currencies={props.currencies}
         />
       </Card>
     </div>

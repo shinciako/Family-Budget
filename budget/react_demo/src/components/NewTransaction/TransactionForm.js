@@ -8,6 +8,8 @@ const TransactionForm = (props) => {
   const [enteredDate, setEnteredDate] = useState(props.prev.date);
   const [selectedCategory, setSelectedCategory] = useState(props.prev.category);
   const [enteredCategory, setEnteredCategory] = useState(props.categories[0]);
+  const [selectedCurrency, setSelectedCurrency] = useState();
+  const [enteredCurrency, setEnteredCurrency] = useState(props.currencies[0]);
 
   const nameChangeHandler = (event) => {
     setEnteredName(event.target.value);
@@ -26,6 +28,12 @@ const TransactionForm = (props) => {
     setEnteredCategory(JSON.parse(event.target.value));
   };
 
+  const currencyChangeHandler = (event) => {
+    setSelectedCurrency(event.target.value);
+    setEnteredCurrency(JSON.parse(event.target.value));
+    console.log("event " + event.target.value);
+  };
+
   const submitHandler = (event) => {
     event.preventDefault();
     const transactionData = {
@@ -33,6 +41,7 @@ const TransactionForm = (props) => {
       price: +enteredPrice,
       date: new Date(enteredDate),
       category: enteredCategory,
+      currency: enteredCurrency,
     };
     props.onSaveTransactionData(transactionData);
     setEnteredName("");
@@ -73,6 +82,14 @@ const TransactionForm = (props) => {
               <option key={category.id} value={JSON.stringify(category)}>
                 {category.name}
               </option>
+            ))}
+          </select>
+          <label>Currency</label>
+          <select value={selectedCurrency} onChange={currencyChangeHandler}>
+            {props.currencies.map((currency) => (
+                <option key={currency.id} value={JSON.stringify(currency)}>
+                  {currency.name}
+                </option>
             ))}
           </select>
         </div>
