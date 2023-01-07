@@ -39,7 +39,8 @@ public class JwtTutorialSecurity {
                 .authorizeHttpRequests((auth) -> {
                     try {
                         auth
-                                .antMatchers("/user").hasRole("USER")
+                                .antMatchers("/login").permitAll()
+                                .antMatchers("/user").hasAnyRole("USER", "ADMIN")
                                 .antMatchers("/admin").hasRole("ADMIN")
                                 .anyRequest().permitAll()
                                 .and()
