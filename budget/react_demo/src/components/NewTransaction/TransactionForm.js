@@ -60,7 +60,6 @@ const TransactionForm = (props) => {
           <label>Price</label>
           <input
             type="number"
-            min="0.01"
             step="0.01"
             value={enteredPrice}
             onChange={priceChangeHandler}

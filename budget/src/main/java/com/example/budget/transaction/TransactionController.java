@@ -1,17 +1,13 @@
 package com.example.budget.transaction;
 
 
-import com.example.budget.category.Category;
 import com.example.budget.category.CategoryRepository;
-import com.example.budget.category.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RequestMapping("/transactions")
@@ -27,8 +23,7 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    @Autowired
-    CategoryRepository repository;
+
 
 
 
