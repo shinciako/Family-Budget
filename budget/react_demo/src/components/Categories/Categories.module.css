@@ -1,6 +1,6 @@
 .category-button {
-  background-color: brown;
-  border-color: brown;
+  background-color: #e69f49;
+  border: 1px solid rgba(255, 255, 255, 0.689);
   border-radius: 5px;
   font-size: 20px;
   color: aliceblue;
@@ -9,6 +9,7 @@
 }
 
 .container {
-  position: relative;
-  display: inline-block;
+  position: fixed;
+  right: 125px;
+  top: 20px;
 }

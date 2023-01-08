@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import classes from "./Header.module.css";
 import budgetImage from "../../assets/familybudget.jpeg";
 import Categories from "../Categories/Categories";
+import Logout from "../../Login/Logout";
 const Header = (props) => {
   return (
     <Fragment>
@@ -11,6 +12,7 @@ const Header = (props) => {
           onAddCategory={props.onAddCategory}
           onStartShowingHandler={props.onStartShowingHandler}
         />
+        <Logout/>
       </header>
 
       <div className={classes["main-image"]}>
