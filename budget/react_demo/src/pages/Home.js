@@ -64,6 +64,7 @@ const Home = () => {
         body: JSON.stringify(transaction),
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -75,6 +76,10 @@ const Home = () => {
       "http://localhost:8080/transactions/bin/" + JSON.stringify(id),
       {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
     fetchTransactionsHandler(token);
