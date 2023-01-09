@@ -41,6 +41,9 @@ public class JwtTutorialSecurity {
                         auth
                                 .antMatchers("/login").permitAll()
                                 .antMatchers("/user").hasAnyRole("USER", "ADMIN")
+                                .antMatchers("/transactions").hasAnyRole("USER", "ADMIN")
+                                .antMatchers("/transactions/new").hasRole("ADMIN")
+//                                .antMatchers("/transactions/id").hasRole("ADMIN")
                                 .antMatchers("/admin").hasRole("ADMIN")
                                 .anyRequest().permitAll()
                                 .and()

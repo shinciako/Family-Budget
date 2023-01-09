@@ -23,7 +23,7 @@ public class JwtUser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Builder.Default
     private String uuid = UUID.randomUUID().toString();
