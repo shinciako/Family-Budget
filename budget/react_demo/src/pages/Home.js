@@ -10,24 +10,34 @@ const Home = () => {
   const [isShowing, setIsShowing] = useState(false);
   const [currencies, setCurrencies] = useState([]);
 
+
+  let token = localStorage.getItem("token");
+
   const startShowingHandler = () => {
     if (isShowing === false) setIsShowing(true);
     else setIsShowing(false);
   };
 
   async function addTransactionHandler(transaction) {
-    await fetch("http://localhost:8080/transactions/", {
+    console.log(token);
+    await fetch("http://localhost:8080/transactions/new", {
       method: "POST",
       body: JSON.stringify(transaction),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
-    fetchTransactionsHandler();
+    fetchTransactionsHandler(token);
   }
 
-  function fetchTransactionsHandler() {
-    fetch("http://localhost:8080/transactions/")
+  function fetchTransactionsHandler(token) {
+    fetch("http://localhost:8080/transactions/", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => {
         return response.json();
       })
@@ -57,7 +67,7 @@ const Home = () => {
         },
       }
     );
-    fetchTransactionsHandler();
+    fetchTransactionsHandler(token);
   }
 
   async function deleteTransactionsHandler(id) {
@@ -67,7 +77,7 @@ const Home = () => {
         method: "DELETE",
       }
     );
-    fetchTransactionsHandler();
+    fetchTransactionsHandler(token);
   }
 
   async function addCategoryHandler(category) {
@@ -139,10 +149,10 @@ const Home = () => {
   }
 
   useEffect(() => {
-    fetchTransactionsHandler();
+    fetchTransactionsHandler(token);
     fetchCategoriesHandler();
     fetchCurrenciesHandler();
-  }, []);
+  }, [token]);
 
   return (
     <div>

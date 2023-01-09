@@ -1,10 +1,13 @@
 package com.example.budget.transaction;
 
 
-import com.example.budget.category.CategoryRepository;
+import com.example.budget.user.JwtUser;
+import com.example.budget.user.JwtUserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,20 +20,19 @@ import java.util.List;
 public class TransactionController {
 
     private final TransactionService transactionService;
+    private final JwtUserRepository jwtUserRepository;
 
     @Autowired
-    public TransactionController(TransactionService transactionService) {
+    public TransactionController(TransactionService transactionService, JwtUserRepository jwtUserRepository) {
         this.transactionService = transactionService;
+        this.jwtUserRepository = jwtUserRepository;
     }
 
 
 
-
-
-
     @GetMapping("/")
-    public ResponseEntity<List<Transaction>> getAll(){
-        return transactionService.getTransactions();
+    public ResponseEntity<List<Transaction>> getAll(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader){
+        return transactionService.getTransactions(authorizationHeader);
     }
 
     @GetMapping("/{id}")
@@ -38,9 +40,9 @@ public class TransactionController {
         return transactionService.getReferenceById(id);
     }
 
-    @PostMapping("/")
-    public ResponseEntity<Transaction> addTransaction(@RequestBody Transaction transaction){
-        return transactionService.addTransaction(transaction);
+    @PostMapping("/new")
+    public ResponseEntity<Transaction> addTransaction(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader,@RequestBody Transaction transaction){
+        return transactionService.addTransaction(transaction, authorizationHeader);
     }
 
 
