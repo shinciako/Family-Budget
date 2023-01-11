@@ -28,30 +28,14 @@ public class TransactionService {
         this.jwtUserRepository = jwtUserRepository;
     }
 
-    private int getIdFromJwt(String authorizationHeader) {
-        String[] chunks = authorizationHeader.split("\\.");
-        Base64.Decoder decoder = Base64.getUrlDecoder();
-        chunks[0] = chunks[0].replace("Bearer ", "");
-        String payload = new String(decoder.decode(chunks[1]));
-        String email = payload.substring(8).split("\"")[0];
-        return jwtUserService.getJwtUserByEmail(email).getId();
-    }
-
     ResponseEntity<List<Transaction>> getTransactions(String authorizationHeader) {
-        int id = getIdFromJwt(authorizationHeader);
+        int id = jwtUserService.getIdFromJwt(authorizationHeader);
         return new ResponseEntity<>(transactionRepository.findByUserId(id), HttpStatus.OK);
     }
 
-//    ResponseEntity<Transaction> getReferenceById(int id, String authorizationHeader) {
-//        Transaction transaction = transactionRepository.findById(id)
-//                .orElseThrow(() -> new ResourceNotFoundException("Transaction with id " + id + " doesn't exist"));
-//        if (transaction.getUser().getId() == getIdFromJwt(authorizationHeader))
-//            return new ResponseEntity<>(transaction, HttpStatus.OK);
-//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//    }
 
     ResponseEntity<Transaction> addTransaction(Transaction transaction, String authorizationHeader) {
-        int id = getIdFromJwt(authorizationHeader);
+        int id = jwtUserService.getIdFromJwt(authorizationHeader);
         transaction.setUser(jwtUserRepository.findExistingJwtUserById(id));
         transactionRepository.save(transaction);
         return new ResponseEntity<>(transaction, HttpStatus.CREATED);
@@ -62,7 +46,7 @@ public class TransactionService {
         Transaction editTransaction = transactionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Transaction with id " + id + " doesn't exist"));
 
-        if (editTransaction.getUser().getId() == getIdFromJwt(authorizationHeader)) {
+        if (editTransaction.getUser().getId() == jwtUserService.getIdFromJwt(authorizationHeader)) {
             editTransaction.setId(id);
             editTransaction.setName(transaction.getName());
             editTransaction.setPrice(transaction.getPrice());
@@ -76,14 +60,14 @@ public class TransactionService {
         return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
-    ResponseEntity<Integer> deleteTransaction(int id, String authorizationHeader) {
+    ResponseEntity deleteTransaction(int id, String authorizationHeader) {
         Transaction transaction = transactionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Transaction with id " + id + " doesn't exist"));
 
-        if (transaction.getUser().getId() == getIdFromJwt(authorizationHeader)) {
+        if (transaction.getUser().getId() == jwtUserService.getIdFromJwt(authorizationHeader)) {
             transactionRepository.deleteById(id);
-            return new ResponseEntity<>(id, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(id, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

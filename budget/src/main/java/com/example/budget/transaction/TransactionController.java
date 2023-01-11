@@ -30,12 +30,6 @@ public class TransactionController {
         return transactionService.getTransactions(authorizationHeader);
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Transaction> getById(
-//            @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader,
-//            @PathVariable int id) {
-//        return transactionService.getReferenceById(id, authorizationHeader);
-//    }
 
     @PostMapping("/new")
     public ResponseEntity<Transaction> addTransaction(
@@ -54,7 +48,7 @@ public class TransactionController {
     }
 
     @DeleteMapping("/bin/{id}")
-    public ResponseEntity<Integer> deletePost(
+    public ResponseEntity deletePost(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader,
             @PathVariable int id) {
         return transactionService.deleteTransaction(id,authorizationHeader);

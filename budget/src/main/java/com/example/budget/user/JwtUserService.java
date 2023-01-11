@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Base64;
 import java.util.Optional;
 import java.util.Set;
 
@@ -43,6 +44,15 @@ public class JwtUserService {
                     .build());
         }
         return jwtUser;
+    }
+
+    public int getIdFromJwt(String authorizationHeader) {
+        String[] chunks = authorizationHeader.split("\\.");
+        Base64.Decoder decoder = Base64.getUrlDecoder();
+        chunks[0] = chunks[0].replace("Bearer ", "");
+        String payload = new String(decoder.decode(chunks[1]));
+        String email = payload.substring(8).split("\"")[0];
+        return getJwtUserByEmail(email).getId();
     }
 
 }

@@ -26,7 +26,6 @@ const Home = () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(transaction);
     fetchTransactionsHandler(token);
   }
 
@@ -90,13 +89,19 @@ const Home = () => {
       body: JSON.stringify(category),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
-    fetchCategoriesHandler();
+    fetchCategoriesHandler(token);
   }
 
-  function fetchCategoriesHandler() {
-    fetch("http://localhost:8080/categories/")
+  function fetchCategoriesHandler(token) {
+    fetch("http://localhost:8080/categories/new", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => {
         return response.json();
       })
@@ -117,7 +122,6 @@ const Home = () => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         const transformedCurrencies = data.map((currencyData) => {
           return {
             id: currencyData.id,
@@ -133,28 +137,33 @@ const Home = () => {
       "http://localhost:8080/categories/" + JSON.stringify(category.id),
       {
         method: "PUT",
-        body: JSON.stringify(category.name),
+        body: JSON.stringify(category),
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );
     fetchTransactionsHandler(token);
-    fetchCategoriesHandler();
+    fetchCategoriesHandler(token);
     fetchCurrenciesHandler();
   }
 
   async function deleteCategoryHandler(id) {
     await fetch("http://localhost:8080/categories/bin/" + JSON.stringify(id), {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
     fetchTransactionsHandler(token);
-    fetchCategoriesHandler();
+    fetchCategoriesHandler(token);
   }
 
   useEffect(() => {
     fetchTransactionsHandler(token);
-    fetchCategoriesHandler();
+    fetchCategoriesHandler(token);
     fetchCurrenciesHandler();
   }, [token]);
 
