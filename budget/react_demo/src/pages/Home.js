@@ -10,7 +10,6 @@ const Home = () => {
   const [isShowing, setIsShowing] = useState(false);
   const [currencies, setCurrencies] = useState([]);
 
-
   let token = localStorage.getItem("token");
 
   const startShowingHandler = () => {
@@ -19,7 +18,6 @@ const Home = () => {
   };
 
   async function addTransactionHandler(transaction) {
-    console.log(token);
     await fetch("http://localhost:8080/transactions/new", {
       method: "POST",
       body: JSON.stringify(transaction),
@@ -28,6 +26,7 @@ const Home = () => {
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log(transaction);
     fetchTransactionsHandler(token);
   }
 
@@ -140,7 +139,7 @@ const Home = () => {
         },
       }
     );
-    fetchTransactionsHandler();
+    fetchTransactionsHandler(token);
     fetchCategoriesHandler();
     fetchCurrenciesHandler();
   }
@@ -149,7 +148,7 @@ const Home = () => {
     await fetch("http://localhost:8080/categories/bin/" + JSON.stringify(id), {
       method: "DELETE",
     });
-    fetchTransactionsHandler();
+    fetchTransactionsHandler(token);
     fetchCategoriesHandler();
   }
 
@@ -162,8 +161,11 @@ const Home = () => {
   return (
     <div>
       <Header
+        onAddTransaction={addTransactionHandler}
         onAddCategory={addCategoryHandler}
         onStartShowingHandler={startShowingHandler}
+        categories={categories}
+        currencies={currencies}
       />
       <CategoriesList
         isShowing={isShowing}
