@@ -12,4 +12,5 @@ public interface JwtUserRepository extends JpaRepository<JwtUser, Integer> {
     Optional<JwtUser> findJwtUserByEmail(String email);
 
     JwtUser findExistingJwtUserById(int id);
+
 }
