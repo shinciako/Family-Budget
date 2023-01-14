@@ -4,11 +4,14 @@ import budgetImage from "../../assets/familybudget.jpeg";
 import Categories from "../Categories/Categories";
 import Logout from "../../Login/Logout";
 import FixedTransaction from "../NewTransaction/FixedTransaction";
+import Reflink from "../Reflink/Reflink";
+
 const Header = (props) => {
   return (
     <Fragment>
       <header className={classes.header}>
         <h1>FamilyBudget</h1>
+        <Reflink/>
         <FixedTransaction
           categories={props.categories}
           currencies={props.currencies}

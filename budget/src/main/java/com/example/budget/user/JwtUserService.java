@@ -1,6 +1,8 @@
 package com.example.budget.user;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +18,8 @@ public class JwtUserService {
     private final JwtUserRepository jwtUserRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public JwtUser save(JwtUser user) {
-        return jwtUserRepository.save(user);
+    public void save(JwtUser user) {
+        jwtUserRepository.save(user);
     }
 
     public Optional<JwtUser> findJwtUserByEmail(String email) {
@@ -34,16 +36,17 @@ public class JwtUserService {
                 .orElseThrow(() -> new EntityNotFoundException("User not found by username!"));
     }
 
-    public JwtUser registerUser(JwtUser jwtUser){
+    public ResponseEntity<JwtUser> registerUser(JwtUser jwtUser){
         if (findJwtUserByEmail(jwtUser.getEmail()).isEmpty()) {
             save(JwtUser.builder()
                     .username(jwtUser.getUsername())
                     .email(jwtUser.getEmail())
                     .password(passwordEncoder.encode(jwtUser.getPassword()))
-                    .role(Set.of(Role.ROLE_USER))
+                    .parentId(jwtUser.getParentId())
+                    .role(Set.of(Role.ROLE_ADMIN))
                     .build());
         }
-        return jwtUser;
+        return new ResponseEntity<>(jwtUser, HttpStatus.OK);
     }
 
     public int getIdFromJwt(String authorizationHeader) {
@@ -53,6 +56,16 @@ public class JwtUserService {
         String payload = new String(decoder.decode(chunks[1]));
         String email = payload.substring(8).split("\"")[0];
         return getJwtUserByEmail(email).getId();
+    }
+
+    public int getCurrentId(String authorizationHeader){
+        int id = getIdFromJwt(authorizationHeader);
+        JwtUser jwtUser = jwtUserRepository.findExistingJwtUserById(id);
+        int parentId = jwtUser.getParentId();
+        if(parentId!=0){
+            return parentId;
+        }
+        return id;
     }
 
 }

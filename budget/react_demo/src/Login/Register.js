@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import classes from "./Register.module.css";
 
 const Register = () => {
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
+  const [searchParams] = useSearchParams();
+
+  const parentId = searchParams.get("parentId");
+
 
   async function registerUser(registerCredentials) {
     try{
@@ -62,7 +66,9 @@ const Register = () => {
       username: enteredUsername,
       email: enteredEmail,
       password: enteredPassword,
+      parentId
     };
+    console.log(registerData);
     registerUser(registerData);
   };
 

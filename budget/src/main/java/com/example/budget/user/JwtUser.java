@@ -46,6 +46,9 @@ public class JwtUser implements UserDetails {
     @Builder.Default
     private boolean enabled = true;
 
+    @Column
+    private int parentId;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();
