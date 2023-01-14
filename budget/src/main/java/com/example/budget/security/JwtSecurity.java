@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
 
 @Configuration
-public class JwtTutorialSecurity {
+public class JwtSecurity {
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -23,7 +23,7 @@ public class JwtTutorialSecurity {
     private final JwtUserDetailsService jwtUserDetailsService;
     private final String secret;
 
-    public JwtTutorialSecurity(AuthSuccessHandler authSuccessHandler, JwtUserDetailsService jwtUserDetailsService, @Value("${jwt.secret}") String secret) {
+    public JwtSecurity(AuthSuccessHandler authSuccessHandler, JwtUserDetailsService jwtUserDetailsService, @Value("${jwt.secret}") String secret) {
         this.authSuccessHandler = authSuccessHandler;
         this.jwtUserDetailsService = jwtUserDetailsService;
         this.secret = secret;
@@ -49,7 +49,7 @@ public class JwtTutorialSecurity {
                                 .antMatchers("/categories/new").hasRole("ADMIN")
                                 .antMatchers("/categories/id").hasRole("ADMIN")
                                 .antMatchers("/categories/bin/id").hasRole("ADMIN")
-                                .antMatchers("/admin").hasRole("ADMIN")
+                                .antMatchers("/reflink").hasRole("ADMIN")
                                 .anyRequest().permitAll()
                                 .and()
                                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

@@ -28,8 +28,10 @@ public class TransactionService {
         this.jwtUserRepository = jwtUserRepository;
     }
 
+
     ResponseEntity<List<Transaction>> getTransactions(String authorizationHeader) {
-        int id = jwtUserService.getIdFromJwt(authorizationHeader);
+//        int id = jwtUserService.getIdFromJwt(authorizationHeader);
+        int id = jwtUserService.getCurrentId(authorizationHeader);
         return new ResponseEntity<>(transactionRepository.findByUserId(id), HttpStatus.OK);
     }
 

@@ -3,21 +3,20 @@ package com.example.budget;
 import com.example.budget.user.JwtUser;
 import com.example.budget.user.JwtUserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-public class ExampleController {
+@CrossOrigin("http://localhost:3000")
+public class AuthController {
 
 
     private final JwtUserService jwtUserService;
 
-    public ExampleController(JwtUserService jwtUserService) {
+    public AuthController(JwtUserService jwtUserService) {
         this.jwtUserService = jwtUserService;
     }
 
@@ -26,15 +25,14 @@ public class ExampleController {
         return ("User");
     }
 
-    @GetMapping("/admin")
-    public String adminEndpoint() {
-        return ("Admin");
-    }
-
     @PostMapping("/registration")
     public ResponseEntity<JwtUser> registerUser(@RequestBody JwtUser jwtUser){
-        jwtUserService.registerUser(jwtUser);
-        return new ResponseEntity<>(jwtUser, HttpStatus.OK);
+        return jwtUserService.registerUser(jwtUser);
+    }
+
+    @GetMapping("/reflink")
+    public Integer getReflinkId(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) {
+        return jwtUserService.getCurrentId(authorizationHeader);
     }
 
 }

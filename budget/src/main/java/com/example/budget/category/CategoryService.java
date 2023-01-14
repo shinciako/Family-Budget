@@ -30,7 +30,8 @@ public class CategoryService {
     }
 
     ResponseEntity<List<Category>> getCategories(String authorizationHeader) {
-        int id = jwtUserService.getIdFromJwt(authorizationHeader);
+//        int id = jwtUserService.getIdFromJwt(authorizationHeader);
+        int id = jwtUserService.getCurrentId(authorizationHeader);
         return new ResponseEntity<>(categoryRepository.findByUserId(id), HttpStatus.OK);
     }
 

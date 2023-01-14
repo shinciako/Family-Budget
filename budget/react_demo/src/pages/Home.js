@@ -84,7 +84,7 @@ const Home = () => {
   }
 
   async function addCategoryHandler(category) {
-    await fetch("http://localhost:8080/categories/", {
+    await fetch("http://localhost:8080/categories/new", {
       method: "POST",
       body: JSON.stringify(category),
       headers: {
@@ -96,7 +96,7 @@ const Home = () => {
   }
 
   function fetchCategoriesHandler(token) {
-    fetch("http://localhost:8080/categories/new", {
+    fetch("http://localhost:8080/categories/", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,

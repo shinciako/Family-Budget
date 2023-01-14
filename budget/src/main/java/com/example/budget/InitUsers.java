@@ -41,6 +41,7 @@ public class InitUsers implements CommandLineRunner {
                     .email("user@test.com")
                     .password(passwordEncoder.encode("test"))
                     .role(Set.of(Role.ROLE_USER))
+                    .parentId(1)
                     .build());
         }
     }
