@@ -3,6 +3,7 @@ import Transactions from "./components/Transactions/Transactions";
 import NewTransaction from "./components/NewTransaction/NewTransaction";
 import Header from "./components/Layout/Header";
 import CategoriesList from "./components/Categories/CategoriesList";
+import Report from "./components/ReportGenerator/Report";
 
 const App = () => {
   const [transactions, setTransactions] = useState([]);
@@ -108,6 +109,7 @@ const App = () => {
           return {
             id: currencyData.id,
             name: currencyData.name,
+            code: currencyData.code,
           };
         });
         setCurrencies(transformedCurrencies);
@@ -138,6 +140,10 @@ const App = () => {
     fetchCategoriesHandler();
   }
 
+  function generateReport() {
+
+  }
+
   useEffect(() => {
     fetchTransactionsHandler();
     fetchCategoriesHandler();
@@ -149,6 +155,11 @@ const App = () => {
       <Header
         onAddCategory={addCategoryHandler}
         onStartShowingHandler={startShowingHandler}
+        onGenerateReport={generateReport}
+      />
+      <Report
+        transactions={transactions}
+        currencies={currencies}
       />
       <CategoriesList
         isShowing={isShowing}
