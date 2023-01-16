@@ -1,6 +1,7 @@
 import React from "react";
-import { View, StyleSheet } from "@react-pdf/renderer";
+import { View, StyleSheet, Text } from "@react-pdf/renderer";
 import TableRow from "./TableRow";
+import TableHeader from "./TableHeader";
 
 const styles = StyleSheet.create({
     tableContainer: {
@@ -11,10 +12,20 @@ const styles = StyleSheet.create({
 
 const ItemsTable = ({ data }) => (
     <View style={styles.tableContainer}>
-        {/*<TableHeader />*/}
-        <TableRow items={data.items} />
-        {/*<TableFooter items={data.items} />*/}
+        <TableHeader items={headersData.items}/>
+        <TableRow items={data.items}/>
     </View>
 );
+
+const headersData = {
+    items: [
+        {
+            name: "Name",
+            price: "Price",
+            currency: "Currency",
+            category: "Category",
+        }
+    ]
+}
 
 export default ItemsTable;

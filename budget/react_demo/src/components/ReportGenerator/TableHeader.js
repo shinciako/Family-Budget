@@ -5,25 +5,26 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: "row",
     },
-    transaction: {
+    header: {
         width: "100%",
-        alignItems: "flex-end",
         fontSize: 20,
         left: 10,
-    },
+        fontFamily: "Helvetica-Bold",
+        lineHeight: 1.1,
+    }
 
 });
 
-const TableRow = ({ items }) => {
+const TableHeader = ({ items }) => {
     const rows = items.map((item) => (
         <View style={styles.row}>
-            <Text style={styles.transaction}>{item.name}</Text>
-            <Text style={styles.transaction}>{item.price}</Text>
-            <Text style={styles.transaction}>{item.currency}</Text>
-            <Text style={styles.transaction}>{item.category}</Text>
+            <Text style={styles.header}>{item.name}</Text>
+            <Text style={styles.header}>{item.price}</Text>
+            <Text style={styles.header}>{item.currency}</Text>
+            <Text style={styles.header}>{item.category}</Text>
         </View>
     ));
     return <Fragment>{rows}</Fragment>;
 };
 
-export default TableRow;
+export default TableHeader;

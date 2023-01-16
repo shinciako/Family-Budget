@@ -4,6 +4,7 @@ import NewTransaction from "./components/NewTransaction/NewTransaction";
 import Header from "./components/Layout/Header";
 import CategoriesList from "./components/Categories/CategoriesList";
 import Report from "./components/ReportGenerator/Report";
+import ReactDOM from 'react-dom';
 
 const App = () => {
   const [transactions, setTransactions] = useState([]);
@@ -141,8 +142,16 @@ const App = () => {
   }
 
   function generateReport() {
-
+    ReactDOM.render(<ReportDoc/>, document.getElementById('root'));
   }
+
+  const ReportDoc = () => (
+      <Report
+          transactions={transactions}
+          currencies={currencies}
+          categories={categories}
+      />
+  );
 
   useEffect(() => {
     fetchTransactionsHandler();
@@ -156,10 +165,6 @@ const App = () => {
         onAddCategory={addCategoryHandler}
         onStartShowingHandler={startShowingHandler}
         onGenerateReport={generateReport}
-      />
-      <Report
-        transactions={transactions}
-        currencies={currencies}
       />
       <CategoriesList
         isShowing={isShowing}
