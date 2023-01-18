@@ -1,7 +1,7 @@
 .category-button {
-  background-color: brown;
-  border-color: darkred;
-  border-radius: 7px;
+  background-color: #e69f49;
+  border: 1px solid rgba(255, 255, 255, 0.689);
+  border-radius: 5px;
   font-size: 20px;
   color: aliceblue;
   padding: 10px;
@@ -10,6 +10,6 @@
 
 .container {
   position: fixed;
-  left: 1700px;
-  display: inline-block;
+  right: 112px;
+  top: 20px;
 }

@@ -68,7 +68,7 @@ const TransactionsList = (props) => {
             categories={props.categories}
             prev={currentItem}
             currencies={props.currencies}
-          ></TransactionForm>
+          />
           <button
             className={classes["button--close"]}
             onClick={deleteTransactionsDataHandler}

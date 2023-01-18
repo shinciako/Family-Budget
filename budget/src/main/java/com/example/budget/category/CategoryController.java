@@ -2,6 +2,7 @@ package com.example.budget.category;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,22 +23,29 @@ public class CategoryController {
 
 
     @GetMapping("/")
-    public ResponseEntity<List<Category>> getAll(){
-        return categoryService.getCategories();
+    public ResponseEntity<List<Category>> getAll(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader){
+        return categoryService.getCategories(authorizationHeader);
     }
 
-    @PostMapping("/")
-    public ResponseEntity<Category> addCategory(@RequestBody Category category){
-        return categoryService.addCategory(category);
+    @PostMapping("/new")
+    public ResponseEntity<Category> addCategory(
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader,
+            @RequestBody Category category){
+        return categoryService.addCategory(authorizationHeader, category);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Category> updateCategory(@RequestBody Category category, @PathVariable int id){
-        return categoryService.updateCategory(category,id);
+    public ResponseEntity<Category> updateCategory(
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader,
+            @RequestBody Category category,
+            @PathVariable int id){
+        return categoryService.updateCategory(authorizationHeader, category,id);
     }
 
     @DeleteMapping("/bin/{id}")
-    public ResponseEntity<Integer> deleteCategory(@PathVariable int id){
-        return categoryService.deleteCategory(id);
+    public ResponseEntity deleteCategory(
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader,
+            @PathVariable int id){
+        return categoryService.deleteCategory(authorizationHeader, id);
     }
 }

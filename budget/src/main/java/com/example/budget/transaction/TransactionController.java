@@ -1,17 +1,13 @@
 package com.example.budget.transaction;
 
 
-import com.example.budget.category.Category;
-import com.example.budget.category.CategoryRepository;
-import com.example.budget.category.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RequestMapping("/transactions")
@@ -27,35 +23,34 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    @Autowired
-    CategoryRepository repository;
-
-
-
 
     @GetMapping("/")
-    public ResponseEntity<List<Transaction>> getAll(){
-        return transactionService.getTransactions();
+    public ResponseEntity<List<Transaction>> getAll(
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) {
+        return transactionService.getTransactions(authorizationHeader);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Transaction> getById(@PathVariable int id){
-        return transactionService.getReferenceById(id);
-    }
 
-    @PostMapping("/")
-    public ResponseEntity<Transaction> addTransaction(@RequestBody Transaction transaction){
-        return transactionService.addTransaction(transaction);
+    @PostMapping("/new")
+    public ResponseEntity<Transaction> addTransaction(
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader,
+            @RequestBody Transaction transaction) {
+        return transactionService.addTransaction(transaction, authorizationHeader);
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Transaction> updateTransaction(@RequestBody Transaction transaction, @PathVariable int id){
-        return transactionService.updateTransaction(transaction, id);
+    public ResponseEntity<Transaction> updateTransaction(
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader,
+            @RequestBody Transaction transaction,
+            @PathVariable int id) {
+        return transactionService.updateTransaction(transaction, id, authorizationHeader);
     }
 
     @DeleteMapping("/bin/{id}")
-    public ResponseEntity<Integer> deletePost(@PathVariable int id){
-        return transactionService.deleteTransaction(id);
+    public ResponseEntity deletePost(
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader,
+            @PathVariable int id) {
+        return transactionService.deleteTransaction(id,authorizationHeader);
     }
 }
