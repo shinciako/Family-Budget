@@ -1,4 +1,4 @@
-.report-button {
+.category-button {
   background-color: brown;
   border-color: darkred;
   border-radius: 7px;
@@ -9,6 +9,7 @@
 }
 
 .container {
-  position: relative;
+  position: fixed;
+  left: 1700px;
   display: inline-block;
 }

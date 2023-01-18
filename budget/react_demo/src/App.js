@@ -142,7 +142,7 @@ const App = () => {
   }
 
   function generateReport() {
-    ReactDOM.render(<ReportDoc/>, document.getElementById('root'));
+    ReactDOM.render(<ReportDoc />, document.getElementById('root'));
   }
 
   const ReportDoc = () => (
@@ -152,6 +152,21 @@ const App = () => {
           categories={categories}
       />
   );
+
+  function shareButtonHandler() {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Family Budget',
+        url: 'http://localhost:3000/'
+      }).then(() => {
+        console.log('Thanks for sharing!');
+      })
+          .catch(console.error);
+    } else {
+      window.alert("Your browser is not supported..")
+    }
+
+  }
 
   useEffect(() => {
     fetchTransactionsHandler();
@@ -165,6 +180,7 @@ const App = () => {
         onAddCategory={addCategoryHandler}
         onStartShowingHandler={startShowingHandler}
         onGenerateReport={generateReport}
+        onShareButton={shareButtonHandler}
       />
       <CategoriesList
         isShowing={isShowing}

@@ -1,7 +1,7 @@
-.category-button {
+.report-button {
   background-color: blue;
   border-color: darkblue;
-  border-radius: 5px;
+  border-radius: 7px;
   font-size: 20px;
   color: aliceblue;
   padding: 10px;
@@ -9,6 +9,7 @@
 }
 
 .container {
-  position: relative;
+  position: fixed;
+  left: 1500px;
   display: inline-block;
 }
