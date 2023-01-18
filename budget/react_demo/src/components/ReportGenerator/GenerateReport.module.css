@@ -1,0 +1,15 @@
+.report-button {
+  background-color: blue;
+  border-color: darkblue;
+  border-radius: 7px;
+  font-size: 20px;
+  color: aliceblue;
+  padding: 10px;
+  box-shadow: 0 1px 18px 10px rgba(0, 0, 0, 0.25);
+}
+
+.container {
+  position: fixed;
+  right: 700px;
+  top: 20px;
+}
