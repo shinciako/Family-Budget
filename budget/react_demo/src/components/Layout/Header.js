@@ -5,12 +5,20 @@ import Categories from "../Categories/Categories";
 import Logout from "../../Login/Logout";
 import FixedTransaction from "../NewTransaction/FixedTransaction";
 import Reflink from "../Reflink/Reflink";
+import GenerateReport from "../ReportGenerator/GenerateReport";
+import ShareButton from "../Share/ShareButton";
 
 const Header = (props) => {
   return (
     <Fragment>
       <header className={classes.header}>
         <h1>Family Budget</h1>
+        <GenerateReport
+            onGenerateReport={props.onGenerateReport}
+        />
+        <ShareButton
+            onShareButton={props.onShareButton}
+        />
         <Reflink/>
         <FixedTransaction
           categories={props.categories}
@@ -22,12 +30,6 @@ const Header = (props) => {
           onStartShowingHandler={props.onStartShowingHandler}
         />
         <Logout />
-        <GenerateReport
-            onGenerateReport={props.onGenerateReport}
-        />
-        <ShareButton
-            onShareButton={props.onShareButton}
-        />
       </header>
       <div className={classes["main-image"]}>
         <img src={budgetImage} alt="Gold bars" />

@@ -3,6 +3,9 @@ import Transactions from "../components/Transactions/Transactions";
 import NewTransaction from "../components/NewTransaction/NewTransaction";
 import Header from "../components/Layout/Header";
 import CategoriesList from "../components/Categories/CategoriesList";
+import Report from "../components/ReportGenerator/Report";
+import ReactDOM from 'react-dom';
+
 
 const Home = () => {
   const [transactions, setTransactions] = useState([]);
@@ -126,6 +129,7 @@ const Home = () => {
           return {
             id: currencyData.id,
             name: currencyData.name,
+            code: currencyData.code,
           };
         });
         setCurrencies(transformedCurrencies);
@@ -161,11 +165,39 @@ const Home = () => {
     fetchCategoriesHandler(token);
   }
 
+  function generateReport() {
+    ReactDOM.render(<ReportDoc />, document.getElementById('root'));
+  }
+
+  const ReportDoc = () => (
+      <Report
+          transactions={transactions}
+          currencies={currencies}
+          categories={categories}
+      />
+  );
+
+  function shareButtonHandler() {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Family Budget',
+        url: 'http://localhost:3000/'
+      }).then(() => {
+        console.log('Thanks for sharing!');
+      })
+          .catch(console.error);
+    } else {
+      window.alert("Your browser is not supported..")
+    }
+
+  }
+
   useEffect(() => {
     fetchTransactionsHandler(token);
     fetchCategoriesHandler(token);
     fetchCurrenciesHandler();
   }, [token]);
+
 
   return (
     <div>
@@ -175,6 +207,8 @@ const Home = () => {
         onStartShowingHandler={startShowingHandler}
         categories={categories}
         currencies={currencies}
+        onGenerateReport={generateReport}
+        onShareButton={shareButtonHandler}
       />
       <CategoriesList
         isShowing={isShowing}

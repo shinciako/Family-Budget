@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text } from "@react-pdf/renderer";
+import { View, StyleSheet } from "@react-pdf/renderer";
 import TableRow from "./TableRow";
 import TableHeader from "./TableHeader";
 

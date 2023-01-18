@@ -1,5 +1,5 @@
 import React from "react";
-import {Page, Document, StyleSheet, Text, Font, View} from "@react-pdf/renderer";
+import {Page, Document, StyleSheet, Text} from "@react-pdf/renderer";
 import ItemsTable from "./ItemsTable";
 import ItemsTableSum from "./ItemsTableSum";
 

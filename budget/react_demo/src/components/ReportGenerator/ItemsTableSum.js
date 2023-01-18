@@ -1,7 +1,6 @@
 import React from "react";
-import { View, StyleSheet, Text } from "@react-pdf/renderer";
+import { View, StyleSheet } from "@react-pdf/renderer";
 import TableRowSum from "./TableRowSum";
-import Table from "./Table";
 
 const styles = StyleSheet.create({
     tableContainer: {

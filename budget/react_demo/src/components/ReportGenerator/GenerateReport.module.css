@@ -10,6 +10,6 @@
 
 .container {
   position: fixed;
-  left: 1500px;
-  display: inline-block;
+  right: 700px;
+  top: 20px;
 }
