@@ -21,23 +21,12 @@ public class CurrencyController {
     }
 
 
+    /**
+     * Get all the currencies
+     */
     @GetMapping("/")
     public ResponseEntity<List<Currency>> getAll(){
         return currencyService.getCurrencies();
     }
 
-    @PostMapping("/")
-    public ResponseEntity<Currency> addCurrency(@RequestBody Currency currency){
-        return currencyService.addCurrency(currency);
-    }
-
-    @PutMapping("/")
-    public ResponseEntity<Currency> updateCurrency(@RequestBody Currency currency, @PathVariable int id){
-        return currencyService.updateCurrency(currency, id);
-    }
-
-    @DeleteMapping("/bin/{id}")
-    public ResponseEntity<Integer> deleteCurrency(@PathVariable int id){
-        return currencyService.deleteCurrency(id);
-    }
 }

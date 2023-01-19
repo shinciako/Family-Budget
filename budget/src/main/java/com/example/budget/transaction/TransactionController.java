@@ -23,14 +23,18 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-
+    /**
+     * Get all of the user's transactions.
+     */
     @GetMapping("/")
     public ResponseEntity<List<Transaction>> getAll(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) {
         return transactionService.getTransactions(authorizationHeader);
     }
 
-
+    /**
+     * Post new transaction.
+     */
     @PostMapping("/new")
     public ResponseEntity<Transaction> addTransaction(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader,
@@ -38,7 +42,9 @@ public class TransactionController {
         return transactionService.addTransaction(transaction, authorizationHeader);
     }
 
-
+    /**
+     * Update specific user's transaction by id.
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Transaction> updateTransaction(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader,
@@ -47,6 +53,9 @@ public class TransactionController {
         return transactionService.updateTransaction(transaction, id, authorizationHeader);
     }
 
+    /**
+     * Delete specific user's transaction by id.
+     */
     @DeleteMapping("/bin/{id}")
     public ResponseEntity deletePost(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader,

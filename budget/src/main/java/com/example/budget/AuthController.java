@@ -20,16 +20,27 @@ public class AuthController {
         this.jwtUserService = jwtUserService;
     }
 
+
+    /**
+     *
+     * Endpoint to check if user is logged in.
+     */
     @GetMapping("/user")
     public String userEndpoint() {
-        return ("User");
+        return ("Logged");
     }
 
+    /**
+     * Endpoint to register user.
+     */
     @PostMapping("/registration")
     public ResponseEntity<JwtUser> registerUser(@RequestBody JwtUser jwtUser){
         return jwtUserService.registerUser(jwtUser);
     }
 
+    /**
+     * Endpoint to generate reflink for user with user role.
+     */
     @GetMapping("/reflink")
     public Integer getReflinkId(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) {
         return jwtUserService.getCurrentId(authorizationHeader);

@@ -22,11 +22,17 @@ public class CategoryController {
     }
 
 
+    /**
+     * Get all of the user's categories.
+     */
     @GetMapping("/")
     public ResponseEntity<List<Category>> getAll(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader){
         return categoryService.getCategories(authorizationHeader);
     }
 
+    /**
+     * Post new category.
+     */
     @PostMapping("/new")
     public ResponseEntity<Category> addCategory(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader,
@@ -34,6 +40,9 @@ public class CategoryController {
         return categoryService.addCategory(authorizationHeader, category);
     }
 
+    /**
+     * Update specific user's category by id.
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Category> updateCategory(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader,
@@ -42,6 +51,9 @@ public class CategoryController {
         return categoryService.updateCategory(authorizationHeader, category,id);
     }
 
+    /**
+     * Delete specific user's category by id.
+     */
     @DeleteMapping("/bin/{id}")
     public ResponseEntity deleteCategory(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader,

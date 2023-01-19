@@ -23,25 +23,4 @@ public class CurrencyService {
     ResponseEntity<List<Currency>> getCurrencies(){
         return new ResponseEntity<>(currencyRepository.findAll(), HttpStatus.OK);
     }
-
-
-    ResponseEntity<Currency> addCurrency(Currency category){
-        currencyRepository.save(category);
-        return new ResponseEntity<>(category, HttpStatus.CREATED);
-    }
-
-    ResponseEntity<Currency> updateCurrency(Currency category, int id){
-        Currency editCategory = currencyRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Category with id "+id+" doesn't exist"));
-
-        editCategory.setId(id);
-        editCategory.setName(category.getName());
-        currencyRepository.save(editCategory);
-        return new ResponseEntity<>(editCategory, HttpStatus.OK);
-    }
-
-    ResponseEntity<Integer> deleteCurrency(int id){
-        currencyRepository.deleteById(id);
-        return new ResponseEntity<>(id, HttpStatus.NO_CONTENT);
-    }
 }
