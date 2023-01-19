@@ -34,6 +34,7 @@ public class Transaction {
     private float price;
 
 
+    @NonNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
@@ -45,6 +46,7 @@ public class Transaction {
 
     private Date date;
 
+    @NonNull
     @ManyToOne(fetch = FetchType.EAGER)
     @PrimaryKeyJoinColumn(name = "user_id")
     private JwtUser user;
