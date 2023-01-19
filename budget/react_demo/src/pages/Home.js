@@ -167,27 +167,9 @@ const Home = () => {
     fetchTransactionsHandler(token);
     fetchCategoriesHandler(token);
   }
-  const myEvents = [
-        {
-          start: '2023-01-15T06:00:00',
-          end: '2023-01-31T20:30:00',
-          name: 'Bills',
-          desc: '380zł',
-        },{
-          start: '2023-03-16T12:00:00',
-          end: '2023-03-16T15:30:00',
-          name: 'Pizza',
-          desc: '70zł'
-        },{
-          start: '2023-02-16T09:00:00',
-          end: '2023-02-16T21:30:00',
-          name: 'Kids clothes',
-          desc: '650zł'
-        }
-      ]
+
       new Calendar({
     id: '#color-calendar',
-    eventsData: myEvents,
   });
 
   function generateReport() {
