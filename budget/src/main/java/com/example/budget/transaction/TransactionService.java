@@ -55,7 +55,6 @@ public class TransactionService {
             editTransaction.setCategory(transaction.getCategory());
             editTransaction.setDate(transaction.getDate());
             editTransaction.setCurrency(transaction.getCurrency());
-            editTransaction.setFixed(transaction.isFixed());
             transactionRepository.save(editTransaction);
             return new ResponseEntity<>(editTransaction, HttpStatus.OK);
         }

@@ -33,6 +33,7 @@ public class Transaction {
     @NonNull
     private float price;
 
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
@@ -41,8 +42,6 @@ public class Transaction {
     @JoinColumn(name = "currency_id")
     private Currency currency;
 
-    @NonNull
-    private boolean isFixed;
 
     private Date date;
 
