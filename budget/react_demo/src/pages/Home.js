@@ -3,9 +3,6 @@ import Transactions from "../components/Transactions/Transactions";
 import NewTransaction from "../components/NewTransaction/NewTransaction";
 import Header from "../components/Layout/Header";
 import CategoriesList from "../components/Categories/CategoriesList";
-import Calendar from 'color-calendar';
-import 'color-calendar/dist/css/theme-basic.css';
-import 'color-calendar/dist/css/theme-glass.css';
 import Report from "../components/ReportGenerator/Report";
 import ReactDOM from 'react-dom';
 
@@ -168,10 +165,6 @@ const Home = () => {
     fetchCategoriesHandler(token);
   }
 
-      new Calendar({
-    id: '#color-calendar',
-  });
-
   function generateReport() {
     ReactDOM.render(<ReportDoc />, document.getElementById('root'));
   }
@@ -236,7 +229,6 @@ const Home = () => {
         onDeleteTransactionsHandler={deleteTransactionsHandler}
         currencies={currencies}
       />
-      <div id="color-calendar"></div>
     </div>
   );
 };
