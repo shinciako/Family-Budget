@@ -10,9 +10,7 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
-@EqualsAndHashCode(of = "uuid")
 @Getter
 @Setter
 @Builder
@@ -24,9 +22,6 @@ public class JwtUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @Builder.Default
-    private String uuid = UUID.randomUUID().toString();
 
     @Column
     private String username;
